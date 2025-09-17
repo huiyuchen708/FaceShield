@@ -2,24 +2,14 @@
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC_BY--NC_4.0-brightgreen.svg)](https://creativecommons.org/licenses/by-nc/4.0/) ![PyTorch](https://img.shields.io/badge/Pytorch-2.6.0-brightgreen) ![Python](https://img.shields.io/badge/Python-3.10.16-brightgreen)
 
-<b> Authors: Ming Zhang, Yuchen Hui, Xiaoguang Li, Guojia Yu, Haonan Yan, <a href='https://scholar.google.com/citations?hl=zh-CN&user=oEcRS84AAAAJ&view_op=list_works&sortby=pubdate'>Hui Li*</a>  </b>
-
-
->  ❗️❗️❗️ **News:**
-> 1. **LATEST DETECTOR**: Our **most powerful model** ([paper](https://arxiv.org/abs/2411.15633)) has been accepted by **ICML 25 Spotlight** ⭐. We propose a highly generalizable and efficient detection method that can be used to **detect both face deepfake images and synthetic images** (not limited to face). We have released the [code](https://github.com/YZY-stack/Effort-AIGI-Detection) based on the DeepfakeBench codebase.
-> 
-> 2. **NEW DATASET**: We are excited to introduce our **brand-new deepfake dataset** called DF40, comprising **40 distinct deepfake techniques, even the just released SoTAs**. DF40 is designed for seamless integration into the workflow of DeepfakeBench, allowing you to train or test just as you would with other datasets like Celeb-DF and FF++. Please refer to [DF40 dataset](https://github.com/YZY-stack/DF40) for details.
->    
-> 3. The pre-trained weights of 3D R50 for training I3D, FTCN, and AltFreezing are [here](https://github.com/SCLBD/DeepfakeBench/releases/download/v1.0.3/I3D_8x8_R50.pth)
-
-
+<b> Authors: Ming Zhang, Yuchen Hui, <a href='https://scholar.google.com/citations?hl=zh-CN&user=y52WOmkAAAAJ&view_op=list_works&sortby=pubdate'>Xiaoguang Li*</a>, Guojia Yu, <a href='https://scholar.google.com/citations?hl=zh-CN&user=FFX0Mj4AAAAJ'>Haonan Yan</a>, <a href='https://scholar.google.com/citations?hl=zh-CN&user=oEcRS84AAAAJ&view_op=list_works&sortby=pubdate'>Hui Li*</a>  </b>
 
 ---
-
+## Overview 
 <div align="center"> 
 </div>
 <div style="text-align:center;">
-  <img src="figures/archi.png" style="max-width:60%;">
+  <img src="figures/framework.png" style="max-width:60%;">
 </div>
 
 Welcome to *DeepfakeBench*, your one-stop solution for deepfake detection! Here are some key features of our platform:
@@ -34,25 +24,13 @@ Welcome to *DeepfakeBench*, your one-stop solution for deepfake detection! Here 
 > 
 > ✅ **Extensive Analysis and Insights**: *DeepfakeBench* facilitates an extensive analysis from various perspectives, providing new insights to inspire the development of new technologies.
 
-
 ---
 
 
 
->  😊 **DeepfakeBench-v2 Updates:**
+>  😊 **FaceShield Updates:**
 > 
-> 1. **36 Detectors are supported**: *DeepfakeBench*, currently, supports a total of **36** detection methods (28 image detectors + 8 video detectors).
-> 
-> 2. **More SoTA detectors are added**: We have implemented more **SoTA and latest** detectors, including: *Effort (ICML'25 spotlight), LSDA (CVPR'24), AltFreezing (CVPR'23), TALL (ICCV'23), IID (CVPR'23), SBI (CVPR'22), SLADD (CVPR'22), FTCN (ICCV'21), etc.*
-> 
-> 3. **Data Preprocessing**: *DeepfakeBench* currently provides **LMDB** for more faster and effective IO.
-> 
-> 4. **Multi-GPUs Training**: *DeepfakeBench* offers **DDP** for multiple GPUs training.
->
-> 5. **Integrated Framework**: *DeepfakeBench* offers an integrated framework, including training, data loading, and evaluation at both the image and video levels.
->
-> 6. **More Evaluation Metrics**: *DeepfakeBench* facilitates a more comprehensive evaluation by including the following metrics: frame-level AUC, video-level AUC, ACC (fake and real), EER, PR, and AP.
-
+> [y] 20/09/2025: *First version pre-released for this open source code.*
 ---
 
 <font size=4><b> Table of Contents </b></font>
