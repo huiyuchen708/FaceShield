@@ -30,7 +30,7 @@ Welcome to *DeepfakeBench*, your one-stop solution for deepfake detection! Here 
 
 >  😊 **FaceShield Updates:**
 > 
-> [y] 20/09/2025: *First version pre-released for this open source code.*
+> [Y] 20/09/2025: *First version pre-released for this open source code.*
 ---
 
 <font size=4><b> Table of Contents </b></font>
