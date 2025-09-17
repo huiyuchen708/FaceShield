@@ -61,17 +61,18 @@ pip install -r requirements.txt
 
 <a href="#top">[Back to top]</a>
 
-For convenience, we provide the data used in our study, including:
-1. Downloading [Celeb-DF-v2](https://github.com/ondyari/FaceForensics) *Original* dataset for training data preparation. All the downloaded datasets are already **preprocessed** to cropped faces (32 frames per video) with their masks and landmarks, which can be **directly deployed to training our benchmark**. For the test set, we provide a download link for [UADFV](https://github.com/ondyari/FaceForensics), while the other datasets can be obtained online.
+Downloading [FF-HQ](https://huggingface.co/datasets/student/FFHQ) *Original* dataset for training data preparation. and [VGGface2](https://github.com/NNNNAI/VGGFace2-HQ) dataset to evaluate the published baseline.
 
+Here, we present the preprocessing results for the aforementioned datasets. Specifically, the facial images underwent re-indexing to ensure clearer identification during both the training and testing phases.[Baidu, Password: ogjn](https://pan.baidu.com/s/1NAMUHcZvsIm7l6hMHeEQjQ?pwd=ogjn), [Google Drive](https://drive.google.com/drive/folders/1N4X3rvx9IhmkEZK-KIk4OxBrQb9BRUcs?usp=drive_link)
 
 🛡️ **Copyright of the above datasets belongs to their original providers.**
 
 2. Upon downloading the datasets, please ensure to store them in the [`./content`](./content/) folder, arranging them in accordance with the directory structure outlined below:
 
+
 ```
 content
-├── Celeb-DF-v2
+├── FF-HQ
 |   ├── Celeb-real
 |   |   ├── frames (if you download my processed data)
 |   |   |   ├── id*_*
@@ -100,8 +101,8 @@ content
 |   |   |   |   ├── *.npy
 │   |   │   ├── ...
 |   ├── List_of_testing_videos.txt
-├── UADFV
-|   ├── fake
+├── VGGface2
+|   ├── id*
 |   |   ├── frames (if you download my processed data)
 |   |   |   ├── *_fake
 |   |   |   |   ├── *.png
@@ -124,11 +125,9 @@ If you choose to store your datasets in a different folder, you may specified th
 
 <a href="#top">[Back to top]</a>
 
-**❗️Note**: If you want to directly utilize the data, including frames, landmarks, masks, and more, that I have provided above, you can skip the pre-processing step. **However, you still need to run the rearrangement script to generate the JSON file** for each dataset for the unified data loading in the training and testing process.
+To select active neurons during the training process and normalize the output of each separation layer, please follow the steps below:
 
-DeepfakeBench follows a sequential workflow for face detection, alignment, and cropping. The processed data, including face images, landmarks, and masks, are saved in separate folders for further analysis.
-
-To start preprocessing your dataset, please follow these steps:
+1. 
 
 1. Download the [shape_predictor_81_face_landmarks.dat](https://github.com/SCLBD/DeepfakeBench/releases/download/v1.0.0/shape_predictor_81_face_landmarks.dat) file. Then, copy the downloaded shape_predictor_81_face_landmarks.dat file into the `./preprocessing/dlib_tools folder`. This file is necessary for Dlib's face detection functionality.
 
