@@ -14,13 +14,13 @@
 
 Welcome to FaceShield, your high-fidelity and provable facial privacy protection platform! Here are some key features of our platform:
 
-> 📌 **Feature disentanglement**: *Faceshield* leverages joint statistical and spatial independence constraints to maximally disentangle facial identity and perceptual content, thereby separating identity perturbation from perceptual preservation.
+> 📌 **Feature disentanglement**: *FaceShield* leverages joint statistical and spatial independence constraints to maximally disentangle facial identity and perceptual content, thereby separating identity perturbation from perceptual preservation.
 > 
-> 📌 **Practical Sampling**: *Faceshield* decomposes high-dimensional identity perturbation into two tractable sub-processes, thereby reducing computational overhead in high-dimensional scenarios.
+> 📌 **Practical Sampling**: *FaceShield* decomposes high-dimensional identity perturbation into two tractable sub-processes, thereby reducing computational overhead in high-dimensional scenarios.
 > 
-> 📌 **Comprehensive Protection**: *Faceshield* prevents unintended identity leakage arising from the perceptual latent space, offering users comprehensive facial privacy protection.
+> 📌 **Comprehensive Protection**: *FaceShield* prevents unintended identity leakage arising from the perceptual latent space, offering users comprehensive facial privacy protection.
 > 
-> 📌 **Extensive Evaluation**: *Faceshield* offers users a superior and reliable solution in terms of naturalness, perceptual fidelity, privacy protection, and efficiency.
+> 📌 **Extensive Evaluation**: *FaceShield* offers users a superior and reliable solution in terms of naturalness, perceptual fidelity, privacy protection, and efficiency.
 
 ---
 
@@ -93,137 +93,56 @@ To select active neurons during the training process and normalize the output of
 
 3. The output weight information will be saved to the `...\FaceShield\modules\weights128` directory.
 
+```
+cd preprocess
+python generate.py --data_root your_dataset_path --batch_size 32
+```
+
 ### 4. Training
-To simplify the handling of different datasets, we propose a unified and convenient way to load them. The function eliminates the need to write separate input/output (I/O) code for each dataset, reducing duplication of effort and easing data management.
+FaceShield follows a two-stage separate training process, first training the Feature Separation Extractor (FSE) and then the Image Reconstructor (IRC).
 
-After the preprocessing above, you will obtain the processed data (*i.e., frames, landmarks, and masks*) for each dataset you specify. Similarly, you need to set the parameters in `./preprocessing/config.yaml` for each dataset. After that, run the following line:
-```
-cd preprocessing
-
-python rearrange.py
-```
-After running the above line, you will obtain the JSON files for each dataset in the `./preprocessing/dataset_json` folder. The rearranged structure organizes the data in a hierarchical manner, grouping videos based on their labels and data splits (*i.e.,* train, test, validation). Each video is represented as a dictionary entry containing relevant metadata, including file paths, labels, compression levels (if applicable), *etc*. 
-
-<a href="#top">[Back to top]</a>
-
-To run the training code, you should first download the pretrained weights for the corresponding **backbones** (These pre-trained weights are from ImageNet). You can download them from [Link](https://github.com/SCLBD/DeepfakeBench/releases/download/v1.0.0/pretrained.zip). After downloading, you need to put all the weights files into the folder `./training/pretrained`.
-
-Then, you should go to the `./training/config/detector/` folder and then Choose the detector to be trained. For instance, you can adjust the parameters in [`xception.yaml`](./training/config/detector/xception.yaml) to specify the parameters, *e.g.,* training and testing datasets, epoch, frame_num, *etc*.
-
-After setting the parameters, you can run with the following to train the Xception detector:
+To begin training FSE, use the following command:
 
 ```
-python training/train.py \
---detector_path ./training/config/detector/xception.yaml
+CUDA_VISIBLE_DEVICES=X,Y NPROC_PER_NODE=2 MASTER_PORT=29505 bash train.sh --epochs 10
 ```
 
-You can also adjust the training and testing datasets using the command line, for example:
+Replace X and Y with the respective GPU IDs. The log information will be output to the current directory. During training, a checkpoint will be saved every 2000 batches, and the checkpoint weights will be stored in the `checkpoints_FSE` directory. Note that the batch size for FSE training is set to 2, requiring approximately 60GB of GPU memory. You can increase the number of GPUs to speed up FSE training.
+
+Once FSE has converged, you should comment out the stage-I training command in train.sh, and uncomment the stage-II training command. Additionally, modify the checkpoint parameter in the train_Reconstructor.py script to point to the converged FSE weights. Finally, execute the following command to start training IRC:
 
 ```
-python training/train.py \
---detector_path ./training/config/detector/xception.yaml  \
---train_dataset "FaceForensics++" \
---test_dataset "Celeb-DF-v1" "Celeb-DF-v2"
+CUDA_VISIBLE_DEVICES=X,Y NPROC_PER_NODE=2 MASTER_PORT=29505 bash train.sh --epochs 20
 ```
 
-By default, the checkpoints and features will be saved during the training process. If you do not want to save them, run with the following:
-
-```
-python training/train.py \
---detector_path ./training/config/detector/xception.yaml \
---train_dataset "FaceForensics++" \
---test_dataset "Celeb-DF-v1" "Celeb-DF-v2" \
---no-save_ckpt \
---no-save_feat
-```
-
-For **multi-gpus training** (DDP), please refer to [`train.sh`](./train.sh) file for details.
-
-To train other detectors using the code mentioned above, you can specify the config file accordingly. However, for the Face X-ray detector, an additional step is required before training. To save training time, a pickle file is generated to store the Top-N nearest images for each given image. To generate this file, you should run the [`generate_xray_nearest.py`](./training/dataset/generate_xray_nearest.py) file. Once the pickle file is created, you can train the Face X-ray detector using the same way above. If you want to check/use the files I have already generated, please refer to the [`link`](https://github.com/SCLBD/DeepfakeBench/releases/tag/v1.0.2).
-
+During training, a checkpoint will be saved every 500 batches, and the final converged IRC weights can be found in the `checkpoints_IRC` directory.
 
 ### 5. Evaluation
-If you only want to evaluate the detectors to produce the results of the cross-dataset evaluation, you can use the the [`test.py`](./training/test.py) code for evaluation. Here is an example:
+If you only want to evaluate the FaceShield, you can use the the [`test.py`](./test.py) code for evaluation. Here is an example:
 
 ```
-python3 training/test.py \
---detector_path ./training/config/detector/xception.yaml \
---test_dataset "Celeb-DF-v1" "Celeb-DF-v2" "DFDCP" \
---weights_path ./training/weights/xception_best.pth
+python .\test.py \
+-img ./Original/img1.jpg \
+-e 0.1 \
+--seed 42 \
+-save ./Perturbed 
 ```
-**Note that we have provided the pre-trained weights for each detector (you can download them from the [`link`](https://github.com/SCLBD/DeepfakeBench/releases/tag/v1.0.1)).** Make sure to put these weights in the `./training/weights` folder.
 
-
+**Please Note that before evaluation**, you need to download the publicly available pretrained weights from the provided [`link`](https://github.com/SCLBD/DeepfakeBench/releases/tag/v1.0.1) and ensure that these weights are placed in the corresponding location within the weights directory.
 
 ## 🏆 Results
 
 <a href="#top">[Back to top]</a>
 
->  ❗️❗️❗️ **DeepfakeBench-v2 Updates:**
-> 
-> The below results are cited from our [paper](https://arxiv.org/abs/2307.01426). We have conducted more comprehensive evaluations using the DeepfakeBench-v2, with more datasets used and more detectors implemented. We will update the below table soon.
-> 
+We present partial experimental results for FaceShield. For a comprehensive understanding of FaceShield's performance in terms of perceptual fidelity, facial privacy protection, and sampling efficiency, we strongly recommend referring to our [paper](xxx).
 
-In our Benchmark, we apply [TensorBoard](https://github.com/tensorflow/tensorboard) to monitor the progress of training models. It provides a visual representation of the training process, allowing users to examine training results conveniently.
+<div align="center"> 
+</div>
+<div style="text-align:center;">
+  <img src="figures/effect.jpg" style="max-width:60%;">
+</div>
 
-To demonstrate the effectiveness of different detectors, we present **partial results** from both within-domain and cross-domain evaluations. The evaluation metric used is the frame-level Area Under the Curve (AUC). In this particular scenario, we train the detectors on the FF++ (c23) dataset and assess their performance on other datasets.
-
-For a comprehensive overview of the results, we strongly recommend referring to our [paper](https://arxiv.org/abs/2307.01426). These resources provide a detailed analysis of the training outcomes and offer a deeper understanding of the methodology and findings.
-
-
-| Type     | Detector   | Backbone  | FF++\_c23 | FF++\_c40 | FF-DF   | FF-F2F  | FF-FS   | FF-NT   | Avg.     | Top3 | CDFv1   | CDFv2   | DF-1.0  | DFD     | DFDC    | DFDCP   | Fsh     | UADFV   | Avg.    | Top3 |
-|----------|------------|-----------|------------|------------|---------|---------|---------|---------|----------|------|---------|---------|---------|---------|---------|---------|---------|---------|---------|------|
-| Naive    | Meso4      | MesoNet   | 0.6077     | 0.5920     | 0.6771  | 0.6170  | 0.5946  | 0.5701  | 0.6097   | 0    | 0.7358  | 0.6091  | 0.9113  | 0.5481  | 0.5560  | 0.5994  | 0.5660  | 0.7150  | 0.6551 | 1    |
-| Naive    | MesoIncep  | MesoNet   | 0.7583     | 0.7278     | 0.8542  | 0.8087  | 0.7421  | 0.6517  | 0.7571   | 0    | 0.7366  | 0.6966  | 0.9233  | 0.6069  | 0.6226  | 0.7561  | 0.6438  | 0.9049  | 0.7364 | 3    |
-| Naive    | CNN-Aug    | ResNet    | 0.8493     | 0.7846     | 0.9048  | 0.8788  | 0.9026  | 0.7313  | 0.8419   | 0    | 0.7420  | 0.7027  | 0.7993  | 0.6464  | 0.6361  | 0.6170  | 0.5985  | 0.8739  | 0.7020 | 0    |
-| Naive    | Xception   | Xception  | 0.9637     | 0.8261     | 0.9799  | 0.9785  | 0.9833  | 0.9385  | 0.9450   | 4    | 0.7794  | 0.7365  | 0.8341  | **0.8163**  | 0.7077  | 0.7374  | 0.6249  | 0.9379  | 0.7718 | 2    |
-| Naive    | EfficientB4| Efficient | 0.9567     | 0.8150     | 0.9757  | 0.9758  | 0.9797  | 0.9308  | 0.9389   | 0    | 0.7909  | 0.7487  | 0.8330  | 0.8148  | 0.6955  | 0.7283  | 0.6162  | 0.9472  | 0.7718 | 3    |
-| Spatial  | Capsule    | Capsule   | 0.8421     | 0.7040     | 0.8669  | 0.8634  | 0.8734  | 0.7804  | 0.8217   | 0    | 0.7909  | 0.7472  | 0.9107  | 0.6841  | 0.6465  | 0.6568  | 0.6465  | 0.9078  | 0.7488 | 2    |
-| Spatial  | FWA        | Xception  | 0.8765     | 0.7357     | 0.9210  | 0.9000  | 0.8843  | 0.8120  | 0.8549   | 0    | 0.7897  | 0.6680  | **0.9334**  | 0.7403  | 0.6132  | 0.6375  | 0.5551  | 0.8539  | 0.7239 | 1    |
-| Spatial  | Face X-ray      | HRNet     | 0.9592     | 0.7925     | 0.9794  | **0.9872**  | 0.9871  | 0.9290  | 0.9391   | 3    | 0.7093  | 0.6786  | 0.5531  | 0.7655  | 0.6326  | 0.6942  | **0.6553**  | 0.8989  | 0.6985 | 0    |
-| Spatial  | FFD        | Xception  | 0.9624     | 0.8237     | 0.9803  | 0.9784  | 0.9853  | 0.9306  | 0.9434   | 1    | 0.7840  | 0.7435  | 0.8609  | 0.8024  | 0.7029  | 0.7426  | 0.6056  | 0.9450  | 0.7733 | 1    |
-| Spatial  | CORE       | Xception  | 0.9638     | 0.8194     | 0.9787  | 0.9803  | 0.9823  | 0.9339  | 0.9431   | 2    | 0.7798  | 0.7428  | 0.8475  | 0.8018  | 0.7049  | 0.7341  | 0.6032  | 0.9412  | 0.7694 | 0    |
-| Spatial  | Recce      | Designed  | 0.9621     | 0.8190     | 0.9797  | 0.9779  | 0.9785  | 0.9357  | 0.9422   | 1    | 0.7677  | 0.7319  | 0.7985  | 0.8119  | 0.7133  | 0.7419  | 0.6095  | 0.9446  | 0.7649 | 2    |
-| Spatial  | UCF        | Xception  | **0.9705** | **0.8399** | **0.9883** | 0.9840  | **0.9896** | **0.9441** | **0.9527** | **6** | 0.7793  | 0.7527  | 0.8241  | 0.8074  | **0.7191**  | **0.7594**  | 0.6462  | **0.9528**  | 0.7801 | **5** |
-| Frequency| F3Net      | Xception  | 0.9635     | 0.8271     | 0.9793  | 0.9796  | 0.9844  | 0.9354  | 0.9449   | 1    | 0.7769  | 0.7352  | 0.8431  | 0.7975  | 0.7021  | 0.7354  | 0.5914  | 0.9347  | 0.7645 | 0    |
-| Frequency| SPSL       | Xception  | 0.9610     | 0.8174     | 0.9781  | 0.9754  | 0.9829  | 0.9299  | 0.9408   | 0    | **0.8150**  | **0.7650**  | 0.8767  | 0.8122  | 0.7040  | 0.7408  | 0.6437  | 0.9424  | **0.7875** | 3    |
-| Frequency| SRM        | Xception  | 0.9576     | 0.8114     | 0.9733  | 0.9696  | 0.9740  | 0.9295  | 0.9359   | 0    | 0.7926  | 0.7552  | 0.8638  | 0.8120  | 0.6995  | 0.7408  | 0.6014  | 0.9427  | 0.7760 | 2    |
-
-
-In the above table, "Avg." donates the average AUC for within-domain and cross-domain evaluation, and the overall results. "Top3" represents the count of each method ranks within the top-3 across all testing datasets. The best-performing method for each column is highlighted.
-
-
-Also, we provide all experimental results in [Link (code: qjpd)](https://pan.baidu.com/s/1Mgo5rW08B3ee_8ZBC3EXJA?pwd=qjpd). You can use these results for further analysis using the code in [`./analysis`](`./analysis`) folder.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+These resources provide a detailed analysis of the training outcomes and offer a deeper understanding of the methodology and findings.
 
 ## 📝 Citation
 
