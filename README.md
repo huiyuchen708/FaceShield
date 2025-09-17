@@ -25,7 +25,7 @@ Welcome to FaceShield, your high-fidelity and provable facial privacy protection
 ---
 
 ## 😊 **FaceShield Updates**
-> - [] To be supplemented after acceptance...
+> - [ ] To be supplemented code after acceptance...
 >
 > - [x] 20/09/2025: *First version pre-released for this open source code.* 
 ---
@@ -47,6 +47,8 @@ Welcome to FaceShield, your high-fidelity and provable facial privacy protection
 ## ⏳ Quick Start
 
 ### 1. Environmental
+<a href="#top">[Back to top]</a>
+
 You can run the following script to configure the necessary environment:
 
 ```
@@ -58,64 +60,22 @@ pip install -r requirements.txt
 ```
 
 ### 2. Download Data
-
 <a href="#top">[Back to top]</a>
-
-Downloading [FF-HQ](https://huggingface.co/datasets/student/FFHQ) *Original* dataset for training data preparation. and [VGGface2](https://github.com/NNNNAI/VGGFace2-HQ) dataset to evaluate the published baseline.
-
-Here, we present the preprocessing results for the aforementioned datasets. Specifically, the facial images underwent re-indexing to ensure clearer identification during both the training and testing phases.[Baidu, Password: ogjn](https://pan.baidu.com/s/1NAMUHcZvsIm7l6hMHeEQjQ?pwd=ogjn), [Google Drive](https://drive.google.com/drive/folders/1N4X3rvx9IhmkEZK-KIk4OxBrQb9BRUcs?usp=drive_link)
 
 🛡️ **Copyright of the above datasets belongs to their original providers.**
 
-2. Upon downloading the datasets, please ensure to store them in the [`./content`](./content/) folder, arranging them in accordance with the directory structure outlined below:
+1. Downloading [FF-HQ](https://huggingface.co/datasets/student/FFHQ) *Original* dataset for training data preparation. and [VGGface2](https://github.com/NNNNAI/VGGFace2-HQ) dataset to evaluate the published baseline. Here, we present the preprocessing results for the aforementioned datasets. Specifically, the facial images underwent re-indexing to ensure clearer identification during both the training and testing phases.[Baidu, Password: ogjn](https://pan.baidu.com/s/1NAMUHcZvsIm7l6hMHeEQjQ?pwd=ogjn), [Google Drive](https://drive.google.com/drive/folders/1N4X3rvx9IhmkEZK-KIk4OxBrQb9BRUcs?usp=drive_link)
 
+2. Upon downloading the datasets, please ensure to store them in the [`./content`](./content/) folder, arranging them in accordance with the directory structure outlined below:
 
 ```
 content
 ├── FF-HQ
-|   ├── Celeb-real
-|   |   ├── frames (if you download my processed data)
-|   |   |   ├── id*_*
-|   |   |   |   ├── *.png
-│   |   │   ├── ...
-|   |   ├── landmarks (if you download my processed data)
-|   |   |   ├── id*_*
-|   |   |   |   ├── *.npy
-│   |   │   ├── ...
-|   ├── Celeb-synthesis
-|   |   ├── frames (if you download my processed data)
-|   |   |   ├── id*_id*_*
-|   |   |   |   ├── *.png
-│   |   │   ├── ...
-|   |   ├── landmarks (if you download my processed data)
-|   |   |   ├── id*_*
-|   |   |   |   ├── *.npy
-│   |   │   ├── ...
-|   ├── Youtube-real
-|   |   ├── frames (if you download my processed data)
-|   |   |   ├── *
-|   |   |   |   ├── *.png
-│   |   │   ├── ...
-|   |   ├── landmarks (if you download my processed data)
-|   |   |   ├── *
-|   |   |   |   ├── *.npy
-│   |   │   ├── ...
-|   ├── List_of_testing_videos.txt
+|   ├── id* (if you download my processed data)
+|   |   ├── *.png
 ├── VGGface2
-|   ├── id*
-|   |   ├── frames (if you download my processed data)
-|   |   |   ├── *_fake
-|   |   |   |   ├── *.png
-|   |   ├── landmarks (if you download my processed data)
-|   |   |   ├── *_fake
-|   |   |   |   ├── *.png
-|   ├── real
-|   |   ├── frames (if you download my processed data)
-|   |   |   ├── *
-|   |   |   |   ├── *.png
-|   |   ├── landmarks (if you download my processed data)
-|   |   |   ├── *
-|   |   |   |   ├── *.npy
+|   ├── id* (if you download my processed data)
+|   |   ├── *.jpg
 Other datasets are similar to the above structure
 ```
 
@@ -127,23 +87,11 @@ If you choose to store your datasets in a different folder, you may specified th
 
 To select active neurons during the training process and normalize the output of each separation layer, please follow the steps below:
 
-1. 
+1. Navigate to the preprocess directory and modify the `--data_root` parameter in the `generate.py` to point to the actual path where the dataset is stored.
 
-1. Download the [shape_predictor_81_face_landmarks.dat](https://github.com/SCLBD/DeepfakeBench/releases/download/v1.0.0/shape_predictor_81_face_landmarks.dat) file. Then, copy the downloaded shape_predictor_81_face_landmarks.dat file into the `./preprocessing/dlib_tools folder`. This file is necessary for Dlib's face detection functionality.
+2. Execute the `generate.py` script within the virtual environment FaceShield.
 
-2. Open the [`./preprocessing/config.yaml`](./preprocessing/config.yaml) and locate the line `default: DATASET_YOU_SPECIFY`. Replace `DATASET_YOU_SPECIFY` with the name of the dataset you want to preprocess, such as `FaceForensics++`.
-
-7. Specify the `dataset_root_path` in the config.yaml file. Search for the line that mentions dataset_root_path. By default, it looks like this: ``dataset_root_path: ./datasets``.
-Replace `./datasets` with the actual path to the folder where your dataset is arranged. 
-
-Once you have completed these steps, you can proceed with running the following line to do the preprocessing:
-
-```
-cd preprocessing
-
-python preprocess.py
-```
-You may skip the preprocessing step by downloading the provided data.
+3. The output weight information will be saved to the `...\FaceShield\modules\weights128` directory.
 
 ### 4. Training
 To simplify the handling of different datasets, we propose a unified and convenient way to load them. The function eliminates the need to write separate input/output (I/O) code for each dataset, reducing duplication of effort and easing data management.
