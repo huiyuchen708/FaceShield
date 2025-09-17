@@ -12,15 +12,15 @@
   <img src="figures/framework.png" style="max-width:60%;">
 </div>
 
-Welcome to *DeepfakeBench*, your one-stop solution for deepfake detection! Here are some key features of our platform:
+Welcome to FaceShield, your high-fidelity and provable facial privacy protection platform! Here are some key features of our platform:
 
-> 📌 **Unified Platform**: *DeepfakeBench* presents the first comprehensive benchmark for deepfake detection, resolving the issue of lack of standardization and uniformity in this field.
+> 📌 **Feature disentanglement**: *Faceshield* leverages joint statistical and spatial independence constraints to maximally disentangle facial identity and perceptual content, thereby separating identity perturbation from perceptual preservation.
 > 
-> 📌 **Data Management**: *DeepfakeBench* provides a unified data management system that ensures consistent input across all detection models.
+> 📌 **Practical Sampling**: *Faceshield* decomposes high-dimensional identity perturbation into two tractable sub-processes, thereby reducing computational overhead in high-dimensional scenarios.
 > 
-> 📌 **Integrated Framework**: *DeepfakeBench* offers an integrated framework for the implementation of state-of-the-art detection methods.
+> 📌 **Comprehensive Protection**: *Faceshield* prevents unintended identity leakage arising from the perceptual latent space, offering users comprehensive facial privacy protection.
 > 
-> 📌 **Standardized Evaluations**: *DeepfakeBench* introduces standardized evaluation metrics and protocols to enhance the transparency and reproducibility of performance evaluations.
+> 📌 **Extensive Evaluation**: *Faceshield* offers users a superior and reliable solution in terms of naturalness, perceptual fidelity, privacy protection, and efficiency.
 
 ---
 
