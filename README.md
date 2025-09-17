@@ -48,11 +48,11 @@ Welcome to FaceShield, your high-fidelity and provable facial privacy protection
 You can run the following script to configure the necessary environment:
 
 ```
-git clone git@github.com:SCLBD/DeepfakeBench.git
-cd DeepfakeBench
-conda create -n DeepfakeBench python=3.7.2
-conda activate DeepfakeBench
-sh install.sh
+git clone git@github.com:huiyuchen708/FaceShield.git
+cd FaceShield
+conda create -n FaceShield python=3.10.16
+conda activate FaceShield
+pip install -r requirements.txt
 ```
 
 ### 2. Download Data
