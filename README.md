@@ -25,10 +25,9 @@ Welcome to FaceShield, your high-fidelity and provable facial privacy protection
 ---
 
 ## 😊 **FaceShield Updates**
-> - [x] To be supplemented after acceptance...
+> - [] To be supplemented after acceptance...
 >
-> - [y] To be supplemented after acceptance...
-> ✅ 20/09/2025: *First version pre-released for this open source code.*
+> - [x] 20/09/2025: *First version pre-released for this open source code.* 
 ---
 
 <font size=4><b> Table of Contents </b></font>
