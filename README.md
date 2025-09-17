@@ -5,7 +5,7 @@
 <b> Authors: Ming Zhang, Yuchen Hui, <a href='https://scholar.google.com/citations?hl=zh-CN&user=y52WOmkAAAAJ&view_op=list_works&sortby=pubdate'>Xiaoguang Li*</a>, Guojia Yu, <a href='https://scholar.google.com/citations?hl=zh-CN&user=FFX0Mj4AAAAJ'>Haonan Yan</a>, <a href='https://scholar.google.com/citations?hl=zh-CN&user=oEcRS84AAAAJ&view_op=list_works&sortby=pubdate'>Hui Li*</a>  </b>
 
 ---
-## Overview 
+## 📚 **Overview**
 <div align="center"> 
 </div>
 <div style="text-align:center;">
@@ -14,23 +14,18 @@
 
 Welcome to *DeepfakeBench*, your one-stop solution for deepfake detection! Here are some key features of our platform:
 
-> ✅ **Unified Platform**: *DeepfakeBench* presents the first comprehensive benchmark for deepfake detection, resolving the issue of lack of standardization and uniformity in this field.
+> 📌 **Unified Platform**: *DeepfakeBench* presents the first comprehensive benchmark for deepfake detection, resolving the issue of lack of standardization and uniformity in this field.
 > 
-> ✅ **Data Management**: *DeepfakeBench* provides a unified data management system that ensures consistent input across all detection models.
+> 📌 **Data Management**: *DeepfakeBench* provides a unified data management system that ensures consistent input across all detection models.
 > 
-> ✅ **Integrated Framework**: *DeepfakeBench* offers an integrated framework for the implementation of state-of-the-art detection methods.
+> 📌 **Integrated Framework**: *DeepfakeBench* offers an integrated framework for the implementation of state-of-the-art detection methods.
 > 
-> ✅ **Standardized Evaluations**: *DeepfakeBench* introduces standardized evaluation metrics and protocols to enhance the transparency and reproducibility of performance evaluations.
-> 
-> ✅ **Extensive Analysis and Insights**: *DeepfakeBench* facilitates an extensive analysis from various perspectives, providing new insights to inspire the development of new technologies.
+> 📌 **Standardized Evaluations**: *DeepfakeBench* introduces standardized evaluation metrics and protocols to enhance the transparency and reproducibility of performance evaluations.
 
 ---
 
-
-
->  😊 **FaceShield Updates:**
-> 
-> [Y] 20/09/2025: *First version pre-released for this open source code.*
+## 😊 **FaceShield Updates**
+> ✅ 20/09/2025: *First version pre-released for this open source code.*
 ---
 
 <font size=4><b> Table of Contents </b></font>
