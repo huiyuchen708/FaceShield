@@ -33,7 +33,7 @@ Welcome to FaceShield, your high-fidelity and provable facial privacy protection
 - [Quick Start](#-quick-start)
   - [Environmental](#1-Environmental)
   - [Download Data](#2-download-data)
-  - [Preprocessing](#3-preprocessing-optional)
+  - [Preprocessing](#3-preprocessing)
   - [Training](#4-Training)
   - [Evaluation](#5-evaluation)
 - [Results](#-results)
@@ -45,7 +45,7 @@ Welcome to FaceShield, your high-fidelity and provable facial privacy protection
 ## ⏳ Quick Start
 
 ### 1. Environmental
-(option 1) You can run the following script to configure the necessary environment:
+You can run the following script to configure the necessary environment:
 
 ```
 git clone git@github.com:SCLBD/DeepfakeBench.git
@@ -54,14 +54,6 @@ conda create -n DeepfakeBench python=3.7.2
 conda activate DeepfakeBench
 sh install.sh
 ```
-
-(option 2) You can also utilize the supplied [`Dockerfile`](./Dockerfile) to set up the entire environment using Docker. This will allow you to execute all the codes in the benchmark without encountering any environment-related problems. Simply run the following commands to enter the Docker environment.
-
-```
-docker build -t DeepfakeBench .
-docker run --gpus all -itd -v /path/to/this/repository:/app/ --shm-size 64G DeepfakeBench
-```
-Note we used Docker version `19.03.14` in our setup. We highly recommend using this version for consistency, but later versions of Docker may also be compatible.
 
 ### 2. Download Data
 
@@ -201,7 +193,7 @@ preprocessing
 
 You may also store your configurations in a different folder by specifying the `dataset_json_folder` in `training\test_config.yaml` and `training\train_config.yaml`.
 
-### 3. Preprocessing (optional)
+### 3. Preprocessing
 
 <a href="#top">[Back to top]</a>
 
