@@ -128,7 +128,7 @@ python .\test.py \
 -save ./Perturbed 
 ```
 
-**Please Note that before evaluation**, you need to download the publicly available pretrained weights from the provided [`link`](https://github.com/SCLBD/DeepfakeBench/releases/tag/v1.0.1) and ensure that these weights are placed in the corresponding location within the weights directory.
+**Please Note that before evaluation**, you need to download the publicly available pretrained weights from the provided [`link`](https://github.com/SCLBD/DeepfakeBench/releases/tag/v1.0.1)(Including FSE, IRC and encoder trained with bone intervention) and ensure that these weights are placed in the corresponding location within the weights directory.
 
 ## 🏆 Results
 
