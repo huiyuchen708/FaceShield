@@ -151,23 +151,12 @@ These resources provide a detailed analysis of the training outcomes and offer a
 If you find our benchmark useful to your research, please cite it as follows:
 
 ```
-@inproceedings{？,
- author = {Zhang, Ming and Hui, Yuchen and Li, Xiaoguang and Guo, Jiayu and Yan, Haonan and Li, Hui},
- booktitle = {xxx},
- title = {FaceShield: High-Utility Differential Privacy Facial Protection for Online Image Publishing},
- url = {xxx.pdf},
- volume = {xx},
- year = {2025, xx x}
-}
+coming soon.
 ```
 
 ## 🛡️ License
 
 <a href="#top">[Back to top]</a>
 
-This repository is licensed by [The Chinese University of Hong Kong, Shenzhen](https://www.cuhk.edu.cn/en) under Creative Commons Attribution-NonCommercial 4.0 International Public License (identified as [CC BY-NC-4.0 in SPDX](https://spdx.org/licenses/)). More details about the license could be found in [LICENSE](./LICENSE).
-
-This project is built by the Secure Computing Lab of Big Data (SCLBD) at The School of Data Science (SDS) of The Chinese University of Hong Kong, Shenzhen, directed by Professor [Baoyuan Wu](https://sites.google.com/site/baoyuanwu2015/home). SCLBD focuses on the research of trustworthy AI, including backdoor learning, adversarial examples, federated learning, fairness, etc.
-
-If you have any suggestions, comments, or wish to contribute code or propose methods, we warmly welcome your input. Please contact us at wubaoyuan@cuhk.edu.cn or yanzhiyuan1114@gmail.com. We look forward to collaborating with you in pushing the boundaries of facial privacy protection.
+If you have any suggestions, comments, or wish to contribute code or propose methods, we warmly welcome your input. Please contact us at zhangming2025@njust.edu.cn or huiyc@stu.xidian.edu.cn. We look forward to collaborating with you in pushing the boundaries of facial privacy protection.
 
