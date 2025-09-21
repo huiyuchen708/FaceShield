@@ -64,7 +64,7 @@ pip install -r requirements.txt
 
 🛡️ **Copyright of the above datasets belongs to their original providers.**
 
-1. Downloading [FF-HQ](https://huggingface.co/datasets/student/FFHQ) *Original* dataset for training data preparation. and [VGGface2](https://github.com/NNNNAI/VGGFace2-HQ) dataset to evaluate the published baseline. Here, we present the preprocessing results for the aforementioned datasets. Specifically, the facial images underwent re-indexing to ensure clearer identification during both the training and testing phases.[Baidu, Password: ogjn](https://pan.baidu.com/s/1NAMUHcZvsIm7l6hMHeEQjQ?pwd=ogjn), [Google Drive](https://drive.google.com/drive/folders/1N4X3rvx9IhmkEZK-KIk4OxBrQb9BRUcs?usp=drive_link)
+1. Downloading [FF-HQ](https://huggingface.co/datasets/student/FFHQ) *Original* dataset for training data preparation. and [VGGface2](https://github.com/NNNNAI/VGGFace2-HQ) dataset to evaluate the published baseline. Here, we present the preprocessing results for the aforementioned datasets. Specifically, the facial images underwent re-indexing to ensure clearer identification during both the training and testing phases.[Quark, Password: EWvv](https://pan.quark.cn/s/b719f9c34a9c?pwd=EWvv)
 
 2. Upon downloading the datasets, please ensure to store them in the [`./content`](./content/) folder, arranging them in accordance with the directory structure outlined below:
 
